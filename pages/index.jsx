@@ -14,15 +14,12 @@ export default function Home({products, bannerData}) {
       <div className='products-container'>
         {products?.map((product) => {
           return (
-            <div>
-              
-              <div>Product details</div>
-            </div>
+            <Product key={product._id} product={product} />
           );
         })}
       </div>
 
-      <FooterBanner />
+      <FooterBanner footerBanner={bannerData && bannerData[0]}/>
     
     </>
   );

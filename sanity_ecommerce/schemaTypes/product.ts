@@ -19,6 +19,7 @@ export default{
             }
         },
         // a slug is used to create a unique URL for each product, unique string that is used as part of the URL
+        // slug is generated from the name of the product and is more descriptive than the a randomly generated id
         {
             name: 'slug',
             title: 'Slug',
