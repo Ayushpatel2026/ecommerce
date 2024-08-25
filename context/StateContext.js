@@ -12,6 +12,25 @@ export const StateContext = ({children}) => {
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
 
+
+    // Load initial data from local storage
+    useEffect(() => {
+        const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
+        const storedTotalPrice = JSON.parse(localStorage.getItem('totalPrice'));
+        const storedTotalQuantities = JSON.parse(localStorage.getItem('totalQuantities'));
+
+        if (storedCartItems) setCartItems(storedCartItems);
+        if (storedTotalPrice) setTotalPrice(storedTotalPrice);
+        if (storedTotalQuantities) setTotalQuantities(storedTotalQuantities);
+    }, []);
+
+    // Save data to local storage whenever it changes
+    useEffect(() => {
+        localStorage.setItem('cartItems', JSON.stringify(cartItems));
+        localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+        localStorage.setItem('totalQuantities', JSON.stringify(totalQuantities));
+    }, [cartItems, totalPrice, totalQuantities]);
+
     let foundProduct;
     let index;
 
@@ -98,7 +117,10 @@ export const StateContext = ({children}) => {
                 onAdd,
                 setShowCart,
                 toggleCartItemQuantity,
-                onRemove
+                onRemove,
+                setCartItems,
+                setTotalPrice,
+                setTotalQuantities
             }}
         >
             {children}

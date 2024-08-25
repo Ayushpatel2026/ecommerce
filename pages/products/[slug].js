@@ -8,7 +8,12 @@ import { useStateContext } from "../../context/StateContext";
 
 const ProductDetails = ({product, products}) => {
     const {name, price, image, details} = product;
-    const {incQty, decQty, qty, onAdd} = useStateContext();
+    const {incQty, decQty, qty, onAdd, setShowCart} = useStateContext();
+
+    const handleBuyNow = () => {
+        onAdd(product, qty);
+        setShowCart(true);
+    }
 
     // the index here is used to keep track of which product image is currently being displayed
     const [index, setIndex] = useState(0);
@@ -72,7 +77,7 @@ const ProductDetails = ({product, products}) => {
 
                         <button type="button"
                             className="buy-now"
-                            onClick=""
+                            onClick={handleBuyNow}
                         >
                             Buy Now
                         </button>
