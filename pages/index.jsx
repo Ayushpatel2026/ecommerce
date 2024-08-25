@@ -30,11 +30,9 @@ export const getServerSideProps = async () => {
   // fetch all products and bannerData from our sanity client (* indicates all)
   const query = '*[_type == "product"]';
   const products = await client.fetch(query);
-  console.log(products);
 
   const banner_query = '*[_type == "banner"]';
   const bannerData = await client.fetch(banner_query);
-  console.log(bannerData);
 
   // this prop will be passed to the Home component during rendering, cool beans
   return {

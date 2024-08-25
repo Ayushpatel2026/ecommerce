@@ -1,6 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {toast} from 'react-hot-toast';
 
+// create context allows us to create a context object that 
+// we can use to pass down the state and functions to the children components
 const Context = createContext();
 
 export const StateContext = ({children}) => {
@@ -13,6 +15,15 @@ export const StateContext = ({children}) => {
     let foundProduct;
     let index;
 
+    const onRemove = (product) => {
+        foundProduct = cartItems.find(item => item._id === product._id);
+        index = cartItems.indexOf(foundProduct);
+        const updatedCart = [...cartItems];
+        updatedCart.splice(index, 1);
+        setCartItems(updatedCart);
+        setTotalPrice((prev) => prev - (foundProduct.price * foundProduct.quantity));
+        setTotalQuantities((prev) => prev - foundProduct.quantity);
+    }
     const toggleCartItemQuantity = (id, value) => {
         foundProduct = cartItems.find(product => product._id === id);
         index = cartItems.indexOf(foundProduct);
@@ -72,6 +83,8 @@ export const StateContext = ({children}) => {
         toast.success(`${qty} ${product.name} added to cart`);
     }
 
+    /*the context provider component will wrap the entire application 
+    and provide the state and functions specified in the value prop to the children components*/
     return(
         <Context.Provider
             value={{
@@ -84,7 +97,8 @@ export const StateContext = ({children}) => {
                 decQty,
                 onAdd,
                 setShowCart,
-                toggleCartItemQuantity
+                toggleCartItemQuantity,
+                onRemove
             }}
         >
             {children}
@@ -92,4 +106,5 @@ export const StateContext = ({children}) => {
     );
 };
 
+// this custom hook makes it easier to access the state and functions in the context with less boilerplate code
 export const useStateContext = () => useContext(Context);
