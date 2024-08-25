@@ -3,10 +3,12 @@ import { client, urlFor } from "../../lib/client";
 import {AiOutlineMinus, AiOutlinePlus, AiOutlineStar, AiFillStar} from 'react-icons/ai';
 import Product from "../../components/Product";
 import { useState } from "react";
+import { useStateContext } from "../../context/StateContext";
 
 
 const ProductDetails = ({product, products}) => {
     const {name, price, image, details} = product;
+    const {incQty, decQty, qty, onAdd} = useStateContext();
 
     // the index here is used to keep track of which product image is currently being displayed
     const [index, setIndex] = useState(0);
@@ -46,13 +48,13 @@ const ProductDetails = ({product, products}) => {
                     <div className="quantity">
                         <h3>Quantity:</h3>
                         <p className="quantity-desc">
-                            <span className="minus" onClick="">
+                            <span className="minus" onClick={decQty}>
                                 <AiOutlineMinus />
                             </span>
-                            <span className="num" onClick="">
-                                {0}
+                            <span className="num">
+                                {qty}
                             </span>
-                            <span className="plus" onClick="">
+                            <span className="plus" onClick={incQty}>
                                 <AiOutlinePlus />
                             </span>
                         </p>
@@ -61,7 +63,7 @@ const ProductDetails = ({product, products}) => {
                     <div className="buttons">
                         <button type="button"
                             className="add-to-cart"
-                            onClick=""
+                            onClick={() => onAdd(product, qty)}
                         >
                             Add to Cart
                         </button>
@@ -125,6 +127,8 @@ export const getStaticPaths = async () => {
         params: {slug: product.slug.current}
     }));
 
+
+    // fallback: false means that if the slug is not found in the paths array, it will return a 404 page
     return {
         paths,
         fallback: false,
