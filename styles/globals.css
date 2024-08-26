@@ -7,8 +7,60 @@ body, * {
   box-sizing: border-box;
 
 }
-::-webkit-scrollbar {
-  width: 0px;
+
+/* Apply custom scrollbar for desktop screens only */
+@media (min-width: 1025px) {
+  ::-webkit-scrollbar {
+    width: 15px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+
+  /* Scrollbar buttons (up and down arrows) */
+  ::-webkit-scrollbar-button {
+    background-color: #f1f1f1; 
+    height: 15px; 
+    border-radius: 10px; 
+  }
+
+  ::-webkit-scrollbar-button:hover{
+    background-color: #ccc; /* darker color when hovered */
+  }
+
+  ::-webkit-scrollbar-button:active {
+    background-color: #555; /* Even darker color when pressed */
+  }
+
+  /* Style for the two buttons */
+  ::-webkit-scrollbar-button:single-button:decrement {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path fill="%555" d="M4 0l4 4h-8l4-4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  ::-webkit-scrollbar-button:single-button:increment {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="8" height="8" viewBox="0 0 8 8"><path fill="%555" d="M4 8l4-4h-8l4 4z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+/* Hide scrollbar for mobile screens */
+@media (max-width: 1024px) {
+  ::-webkit-scrollbar {
+    width: 0; /* Hide scrollbar */
+  }
 }
 
 a {
