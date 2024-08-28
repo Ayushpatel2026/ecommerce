@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { client, urlFor } from "../../lib/client";
 import {AiOutlineMinus, AiOutlinePlus, AiOutlineStar, AiFillStar} from 'react-icons/ai';
