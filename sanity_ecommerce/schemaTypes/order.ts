@@ -67,7 +67,7 @@ export default {
               list: [
                 { title: 'Pending', value: 'pending' },
                 { title: 'Processing', value: 'processing' },
-                { title: 'Completed', value: 'completed' },
+                { title: 'Completed', value: 'complete' },
                 { title: 'Cancelled', value: 'cancelled' },
               ],
               layout: 'radio',
