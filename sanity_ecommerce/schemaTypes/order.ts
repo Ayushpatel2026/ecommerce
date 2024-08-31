@@ -1,4 +1,4 @@
-// TODO: need to add customer information, shipping information, payment information, and other details
+// TODO: need to add a reference to an actual user document, write now just using a customer email
 export default {
     name: 'order',
     title: 'Order',
@@ -8,8 +8,24 @@ export default {
             name: 'orderNumber',
             title: 'Order Number',
             type: 'string',
-            description: 'Unique order number',
-          },
+            description: 'Unique order number taken from the id returned by the payment gateway',
+        },
+        {
+            name: 'customerEmail',
+            title: 'Customer Email',
+            type: 'string',
+            description: 'Email of the customer who placed the order',
+        },
+        {
+            name: 'paymentInfo',
+            title: 'Payment Information',
+            type: 'object',
+            fields: [
+              { name: 'method', title: 'Payment Method', type: 'string' },
+              { name: 'transactionId', title: 'Transaction ID', type: 'string' },
+              { name: 'paymentStatus', title: 'Payment Status', type: 'string' },
+            ],
+        },
           {
             name: 'items',
             title: 'Items',
@@ -67,4 +83,9 @@ export default {
             title: 'Shipping Type',
             type: 'string',
           },
+          {
+            name: 'shippingCost',
+            title: 'Shipping Cost',
+            type: 'number',
+          }
   ]};

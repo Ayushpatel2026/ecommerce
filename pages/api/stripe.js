@@ -35,14 +35,21 @@ export default async function handler(req, res) {
                         product_data: {
                             name: item.name,
                             images: [newImage],
+                            metadata: {
+                              productId: item._id // Store the Sanity product ID here
+                            }
                         },
                         // convert the price to cents
                         unit_amount: item.price * 100,
                     },
+                    adjustable_quantity: {
+                      enabled:true,
+                      minimum: 1,
+                    },
                     quantity: item.quantity,
                 };
             }),
-            success_url: `${req.headers.origin}/success`,
+            success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.origin}/`,
       }
       // Create Checkout Sessions from body params.
