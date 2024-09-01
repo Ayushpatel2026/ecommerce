@@ -7,7 +7,7 @@ This is a modern e-commerce website built with Next.js, Sanity as the backend CM
 - **Product Catalog**: Browse through a range of products with detailed descriptions and images.
 - **Dynamic Pricing**: Prices and images are dynamically fetched from the Sanity backend, ensuring accurate and up-to-date information.
 - **Shopping Cart**: Add items to the cart and manage quantities.
-- **Checkout Process**: Secure checkout process powered by Stripe API, handling payments and order processing.
+- **Checkout Process**: Secure checkout process powered by Stripe API, handling payments and order processing. Payments are in test mode. Use this [link](https://docs.stripe.com/testing) to see how to use the Stripe API test mode to make a payment
 - **Order Summary**: View a detailed summary of the order after checkout, including product details, quantities, and total cost.
 - **Responsive Design**: The website is fully responsive and optimized for both desktop and mobile devices.
 
