@@ -6,6 +6,7 @@ import Product from "../../components/Product";
 import { useState } from "react";
 import { useStateContext } from "../../context/StateContext";
 
+// the data on this page is fetched at build time, therefore it is static, any changes to the sanity data will not be reflected until the page is rebuilt
 
 const ProductDetails = ({product, products}) => {
     const {name, price, image, details} = product;
