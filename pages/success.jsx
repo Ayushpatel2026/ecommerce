@@ -5,6 +5,7 @@ import {BsBagCheckFill} from 'react-icons/bs';
 import { runFireworks } from "../lib/utils";
 import { useRouter } from "next/router";
 import { useStateContext } from '../context/StateContext';
+import buttonStyles from '../styles/buttons.module.css';
 
 const Success = () => {
     // in the sucess page, we want to clear the cart items, total price, and total quantities
@@ -103,12 +104,12 @@ const Success = () => {
                     If you have any questions, please feel free to contact us at <a className="email" href="mailto:orders@example.com">orders@example.com</a>
                 </p>
                 <Link href={`/orders/${session_id}`}>
-                    <button type="button" width="300px" className="btn" style={{backgroundColor: 'green'}}>
+                    <button type="button" width="300px" className={buttonStyles.btn} style={{backgroundColor: 'green'}}>
                         See Your Order
                     </button>
                 </Link>
                 <Link href="/">
-                    <button type="button" width="300px" className="btn">
+                    <button type="button" width="300px" className={buttonStyles.btn}>
                         Continue Shopping
                     </button>
                 </Link>

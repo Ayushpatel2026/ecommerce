@@ -3,6 +3,7 @@ import React, {useRef} from 'react'
 import Link from 'next/link'
 import { useStateContext } from '../context/StateContext'
 import styles from '../styles/login.module.css'
+import buttonStyles from '../styles/buttons.module.css'
 import { toast } from 'react-hot-toast'
 
 const Register = () => {
@@ -78,7 +79,7 @@ return (
                 <input 
                   type="submit" 
                   value="Register"
-                  className={styles.btn}
+                  className={buttonStyles.btn}
                   />
 
             </div>

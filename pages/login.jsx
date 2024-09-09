@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useStateContext } from '../context/StateContext'
 import { useRouter } from 'next/router'
 import styles from '../styles/login.module.css'
+import buttonStyles from '../styles/buttons.module.css'
 
 
 const Login = () => {
@@ -63,14 +64,14 @@ const Login = () => {
                 <input 
                   type="submit" 
                   value="Login"
-                  className={styles.btn}
+                  className={buttonStyles.btn}
                   />
 
             </div>
 
           </form>
 
-          <p>Don't have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
+          <p>Don@apos;t have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
 
         </div>
     </div>
