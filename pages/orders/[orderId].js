@@ -1,13 +1,14 @@
 'use client';
 import { client, urlFor } from '../../lib/client';
+import styles from './orders.module.css';
 
 const Orders = ({ order,products }) => {
     console.log("Order", order);
     console.log("Products", products);
     return (
-        <div className="orders-wrapper">
-            <h1 className="order-heading">Your Order</h1>
-            <div className="order-container">
+        <div className={styles.ordersWrapper}>
+            <h1 className={styles.orderHeading}>Your Order</h1>
+            <div className={styles.orderContainer}>
                 <h3>Order Id: {order.orderNumber}</h3>
                 <p>Date Ordered: {new Date(order.orderDate).toLocaleDateString('en-US', {
                     year: 'numeric',
@@ -15,29 +16,29 @@ const Orders = ({ order,products }) => {
                     day: 'numeric',
                 })}</p>
                 <h3>Items Ordered</h3>
-                <ul className="items-list">
+                <ul className={styles.itemList}>
                     {order.items.map((item, index) => {
                         const product = products.find(prod => prod._id === item.product._ref);
                         return (
                             <li key={index}>
-                                <img src={urlFor(product.image[0])} alt={product?.name} className="order-product-image" />
-                                <div className="item-details">
+                                <img src={urlFor(product.image[0])} alt={product?.name} className={styles.orderProductImage} />
+                                <div className={styles.itemDetails}>
                                     <p>Product Name: {product?.name || 'Unknown Product'}</p>
                                     <p>Quantity Ordered: {item.quantity}</p>
                                     <p>Price per unit: ${item.price}</p>
-                                    <p className="total-per-product">Total: ${item.quantity * item.price}</p>
+                                    <p className={styles.totalPerProduct}>Total: ${item.quantity * item.price}</p>
                                 </div>
                             </li>
                         );
                     })}
                 </ul>
-                <p className="order-total">Order Subtotal: ${order.total - order.shippingCost}</p>
-                <p className="shipping-type">Shipping Type: {order.shippingType}</p>
+                <p className={styles.orderTotal}>Order Subtotal: ${order.total - order.shippingCost}</p>
+                <p className={styles.shippingType}>Shipping Type: {order.shippingType}</p>
                 {order.shippingType === 'fast' && (
-                    <p className="shipping-cost">Shipping Cost: ${order.shippingCost}</p>
+                    <p className={styles.shippingCost}>Shipping Cost: ${order.shippingCost}</p>
                 )}
-                <p className="order-total">Order Total: ${order.total}</p>
-                <p className="order-status">Status: {order.status}</p>
+                <p className={styles.orderTotal}>Order Total: ${order.total}</p>
+                <p className={styles.orderStatus}>Status: {order.status}</p>
             </div>
         </div>
     );

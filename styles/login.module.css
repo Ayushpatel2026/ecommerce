@@ -1,0 +1,59 @@
+.loginRegisterContainer{
+    max-width: 600px;
+    margin:0 auto;
+}
+
+.formField{
+    border: 1px solid #000;
+    padding: 1rem;
+    width: 100%;
+    color: #000;
+    outline: none;
+}
+
+.formFieldWrapper{
+    margin: 1em 0;
+}
+
+/*TODO need to center this submit button*/
+.submitButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container{
+    max-width: 90%;
+    margin: auto;
+    padding: 2em;
+}
+
+.btn{
+    width: 100%;
+    max-width: 400px;
+    padding: 10px 12px;
+    border-radius: 15px;
+    border: none;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-top: 40px;
+    text-transform: uppercase;
+    background-color: #f02d34;
+    color: #fff;
+    cursor: pointer;
+    transform: scale(1, 1);
+    transition: transform 0.5s ease;
+  }
+  .btn:hover{
+    transform: scale(1.1,1.1);
+  }
+
+  .link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .link:hover {
+    color: darkblue;
+  }

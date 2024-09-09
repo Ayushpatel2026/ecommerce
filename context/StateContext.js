@@ -1,5 +1,9 @@
+
 import React, {createContext, useContext, useEffect, useState} from 'react';
+import {account} from '../lib/appwriteConfig';
 import {toast} from 'react-hot-toast';
+import {ID} from 'appwrite';
+import {useRouter} from 'next/router';
 
 // create context allows us to create a context object that 
 // we can use to pass down the state and functions to the children components
@@ -11,6 +15,62 @@ export const StateContext = ({children}) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [totalQuantities, setTotalQuantities] = useState(0);
     const [qty, setQty] = useState(1);
+    const [loading, setLoading] = useState(true);
+    const [user, setUser] = useState(false);
+    const router = useRouter();
+
+    const loginUser = async (userInfo) => {
+        setLoading(true);
+        try{
+            let response = await account.createEmailPasswordSession(userInfo.email, userInfo.password);
+            console.log("Response from login", response);
+            let accountInfo = await account.get();
+            setUser(accountInfo);
+            toast.success('Login successful');
+
+        }
+        catch(error){
+            console.error(error);
+            toast.error('Login failed. Please try again');
+        }
+    
+        setLoading(false);
+    }
+
+    const checkUserStatus = async () => {
+        try{
+            let accountInfo = await account.get();
+            setUser(accountInfo);
+        }
+        catch(error){
+            console.error(error);
+        }
+        setLoading(false);
+    }
+
+    const logoutUser = async () => {
+        await account.deleteSession('current');
+        setUser(null)
+    }
+
+    const registerUser = async (userInfo) => {
+        setLoading(true)
+
+        try{
+            let response = await account.create(ID.unique(), userInfo.email, userInfo.password1, userInfo.name);
+            await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
+
+            let accountDetails = await account.get();
+            setUser(accountDetails)
+            toast.success('Registration successful');
+            router.push('/login')
+        }catch(error){
+            console.error(error)
+            toast.error('Registration failed. Please try again')
+        }
+        
+        setLoading(false)
+    }
 
 
     // Load initial data from local storage
@@ -18,6 +78,8 @@ export const StateContext = ({children}) => {
         const storedCartItems = JSON.parse(localStorage.getItem('cartItems'));
         const storedTotalPrice = JSON.parse(localStorage.getItem('totalPrice'));
         const storedTotalQuantities = JSON.parse(localStorage.getItem('totalQuantities'));
+
+        checkUserStatus();
 
         if (storedCartItems) setCartItems(storedCartItems);
         if (storedTotalPrice) setTotalPrice(storedTotalPrice);
@@ -120,10 +182,15 @@ export const StateContext = ({children}) => {
                 onRemove,
                 setCartItems,
                 setTotalPrice,
-                setTotalQuantities
+                setTotalQuantities,
+                user,
+                loginUser,
+                checkUserStatus,
+                logoutUser,
+                registerUser,
             }}
         >
-            {children}
+            {loading ? <p>Loading...</p> : children}
         </Context.Provider>
     );
 };
