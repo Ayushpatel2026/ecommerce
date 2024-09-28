@@ -1,0 +1,63 @@
+.loginRegisterContainer{
+    max-width: 600px;
+    margin:0 auto;
+}
+
+.passwordContainer {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.formField{
+    border: 1px solid #000;
+    padding-right: 30px;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    width: 100%;
+    color: #000;
+    outline: none;
+}
+
+.formFieldWrapper{
+    margin: 1em 0;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
+  color: #666;
+}
+
+.eyeIcon:hover {
+  color: #000;
+}
+
+/*TODO need to center this submit button*/
+.submitButton{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.container{
+    max-width: 90%;
+    margin: auto;
+    padding: 2em;
+}
+
+  .link {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  
+  .link:hover {
+    color: darkblue;
+  }
+
+.error{
+  color: red;
+}

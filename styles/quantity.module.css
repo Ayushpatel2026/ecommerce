@@ -1,0 +1,20 @@
+.quantityDesc{
+    border: 1px solid gray;
+    padding: 6px;
+}
+.quantityDesc span{
+    font-size: 16px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+.minus{
+    border-right: 1px solid gray;
+    color: #f02d34;
+}
+.num{
+    border-right: 1px solid gray;
+    font-size: 20px;
+}
+.plus{
+    color: rgb(49, 168, 49);
+}
