@@ -1,10 +1,12 @@
 'use client';
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useStateContext } from '../context/StateContext'
 import { useRouter } from 'next/router'
 import styles from '../styles/login.module.css'
+import {toast} from 'react-hot-toast'
 import buttonStyles from '../styles/buttons.module.css'
+import PasswordInput from '../components/PasswordInput';
 
 
 const Login = () => {
@@ -17,9 +19,10 @@ const Login = () => {
   // the dependency array???
   useEffect(() => {
     if (user){
+        console.log("User is logged in")
         router.push('/');
     }
-  }, [user, router])
+  }, [])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -35,7 +38,6 @@ const Login = () => {
     <div className={styles.container}>
         <div className={styles.loginRegisterContainer}>
           <form onSubmit={handleSubmit} ref={loginForm}> 
-
             <div className={styles.formFieldWrapper}>
                 <label>Email:</label>
                 <input 
@@ -47,17 +49,7 @@ const Login = () => {
                   />
             </div>
 
-            <div className={styles.formFieldWrapper}>
-                <label>Password:</label>
-                <input 
-                  className={styles.formField}
-                  type="password" 
-                  name="password"
-                  placeholder="Enter password..."
-                  autoComplete="password"
-                  />
-            </div>
-
+            <PasswordInput name="password" label="Password: " autoComplete="password" />
 
             <div className={`${styles.formFieldWrapper} ${styles.submitButton}`}>
     
@@ -71,7 +63,7 @@ const Login = () => {
 
           </form>
 
-          <p>Don@apos;t have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
+          <p>Don't have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
 
         </div>
     </div>

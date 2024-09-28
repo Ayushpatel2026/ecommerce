@@ -20,21 +20,28 @@ export const StateContext = ({children}) => {
     const router = useRouter();
 
     const loginUser = async (userInfo) => {
-        setLoading(true);
         try{
             let response = await account.createEmailPasswordSession(userInfo.email, userInfo.password);
+            toast.success('Login successful');
             console.log("Response from login", response);
             let accountInfo = await account.get();
             setUser(accountInfo);
-            toast.success('Login successful');
-
-        }
+            router.push('/');
+        }   
         catch(error){
             console.error(error);
-            toast.error('Login failed. Please try again');
-        }
     
-        setLoading(false);
+            if (error.code === 401) {
+                // Handle incorrect email or password
+                toast.error('Invalid credentials. Please check your email and password.', { autoClose: 10000 });
+            } else if (error.code === 429) {
+                // Handle too many requests (rate-limiting)
+                toast.error('Too many login attempts. Please try again later.');
+            } else {
+                // Handle other errors
+                toast.error('Login failed. Please try again.');
+            }
+        }
     }
 
     const checkUserStatus = async () => {
@@ -50,26 +57,26 @@ export const StateContext = ({children}) => {
 
     const logoutUser = async () => {
         await account.deleteSession('current');
+        // clear the state
         setUser(null)
+        setCartItems([]);
+        setTotalPrice(0);
+        setTotalQuantities(0);
     }
 
     const registerUser = async (userInfo) => {
-        setLoading(true)
-
         try{
             let response = await account.create(ID.unique(), userInfo.email, userInfo.password1, userInfo.name);
-            await account.createEmailPasswordSession(userInfo.email, userInfo.password1)
-
-            let accountDetails = await account.get();
-            setUser(accountDetails)
             toast.success('Registration successful');
             router.push('/login')
         }catch(error){
             console.error(error)
-            toast.error('Registration failed. Please try again')
+            if (error.code === 409) {
+                toast.error('Email already exists. Please login instead')
+            }else{
+                toast.error('Registration failed. Please try again')
+            }
         }
-        
-        setLoading(false)
     }
 
 
