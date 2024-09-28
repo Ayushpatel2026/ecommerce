@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef} from 'react'
 import Link from 'next/link'
 import { useStateContext } from '../context/StateContext'
 import { useRouter } from 'next/router'
@@ -63,7 +63,7 @@ const Login = () => {
 
           </form>
 
-          <p>Don't have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
+          <p>Don&apos;t have an account? <Link href="/register"><a className={styles.link}>Register</a></Link></p>
 
         </div>
     </div>
