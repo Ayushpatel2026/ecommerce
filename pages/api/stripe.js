@@ -10,6 +10,8 @@ export default async function handler(req, res) {
     * passing in the appropriate parameters and based on the cart items that the front end sent to us and part of the req body
       it returns the session ID to the client.
    */
+  const cartItems = req.body.cartItems;
+  const email = req.body.email;
   if (req.method === 'POST') {
     try {
       const params = {
@@ -25,7 +27,7 @@ export default async function handler(req, res) {
                     shipping_rate: 'shr_1Prk0j04O6loq1rnixxP4cjG',
                 }
             ],
-            line_items: req.body.map((item) => {
+            line_items: cartItems.map((item) => {
                 // reference the image of the product on Sanity
                 const img = item.image[0].asset._ref;
                 const newImage = img.replace('image-', 'https://cdn.sanity.io/images/xm1vbhow/production/').replace('-webp', '.webp');
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
             }),
             success_url: `${req.headers.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
             cancel_url: `${req.headers.origin}/`,
+            customer_email: email, 
       }
       // Create Checkout Sessions from body params.
       const session = await stripe.checkout.sessions.create(params);

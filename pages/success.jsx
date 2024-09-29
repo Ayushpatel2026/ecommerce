@@ -8,12 +8,16 @@ import { useStateContext } from '../context/StateContext';
 import buttonStyles from '../styles/buttons.module.css';
 
 const Success = () => {
-    // in the sucess page, we want to clear the cart items, total price, and total quantities
-    const {setCartItems, setTotalPrice, setTotalQuantities, cartItems} = useStateContext();
+
+    const {setCartItems, setTotalPrice, setTotalQuantities, cartItems, user} = useStateContext();
     const router = useRouter();
     const {session_id} = router.query;
-    // clear everything as soon as the customer reaches this success page
 
+    if (!user){
+        router.push('/');
+    }
+    
+    // clear everything as soon as the customer reaches this success page
     let order_summary = {};
     useEffect(() => {
         if (session_id) {
@@ -103,7 +107,7 @@ const Success = () => {
                 <p className="description">
                     If you have any questions, please feel free to contact us at <a className="email" href="mailto:orders@example.com">orders@example.com</a>
                 </p>
-                <Link href={`/orders/${session_id}`}>
+                <Link href={`/orders/${user.$id}`}>
                     <button type="button" width="300px" className={buttonStyles.btn} style={{backgroundColor: 'green'}}>
                         See Your Order
                     </button>

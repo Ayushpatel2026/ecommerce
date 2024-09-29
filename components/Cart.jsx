@@ -6,6 +6,8 @@ import { useStateContext } from '../context/StateContext';
 import {toast} from 'react-hot-toast';
 import { urlFor } from '../lib/client';
 import getStripe from '../lib/getStripe';
+import { useRouter } from 'next/router';
+
 import buttonStyles from '../styles/buttons.module.css';
 import cartStyles from './styles/cart.module.css';
 import quantityStyles from '../styles/quantity.module.css';
@@ -13,9 +15,20 @@ import quantityStyles from '../styles/quantity.module.css';
 
 const Cart = () => {
     const cartRef = useRef();
-    const {totalPrice, onRemove, totalQuantities, toggleCartItemQuantity, cartItems, setShowCart} = useStateContext();
+    const {totalPrice, onRemove, totalQuantities, toggleCartItemQuantity, cartItems, setShowCart, user} = useStateContext();
+    const router = useRouter()
 
     const handleCheckout = async () => {
+
+        // if the user is not logged in, show a toast message and redirect to login page
+        if (!user) {
+            toast.error('Please login to continue');
+            return setTimeout(() => {
+                setShowCart(false);
+                router.push('/login');
+            }, 2000);
+        }
+
         // get the Stripe instance
         const stripe = await getStripe();
 
@@ -26,7 +39,7 @@ const Cart = () => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(cartItems),
+            body: JSON.stringify({cartItems, email: user.email}),
         });
 
         if (response.statusCode === 500) return;

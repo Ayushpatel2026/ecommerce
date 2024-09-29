@@ -1,4 +1,5 @@
-// TODO: need to add a reference to an actual user document, write now just using a customer email
+// TODO: customer email is used to identify the customer who placed the order. We cannot do a full reference
+// since users are stored in the auth system and not in the CMS. We can use the email to identify the customer for now
 export default {
     name: 'order',
     title: 'Order',

@@ -21,6 +21,7 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin: 20px 0;
   }
   
   .orderContainer h3 {
@@ -74,7 +75,6 @@
   
   .totalPerProduct {
     font-weight: bold;/* Emphasize total per product */
-    color: red; /* Use a color to make it stand out */
     font-size: 1.1em;
   }
   
@@ -84,8 +84,12 @@
     margin-top: 15px;
     text-align: right;
   }
+
+  .shippingType, .orderStatus {
+    text-transform: capitalize;
+  }
   
-  .orderTotal, .shippingCost {
+  .orderTotal {
     color: #e63946;
   }
   
